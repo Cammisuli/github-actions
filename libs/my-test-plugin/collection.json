@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "my-test-plugin",
+  "version": "0.0.1",
+  "schematics": {
+    "myTestPlugin": {
+      "factory": "./src/schematics/my-test-plugin/schematic",
+      "schema": "./src/schematics/my-test-plugin/schema.json",
+      "description": "my-test-plugin schematic"
+    }
+  }
+}
