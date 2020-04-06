@@ -22,6 +22,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install --frozen-lockfile
-    - run: yarn affected:build --base=$GITHUB_REF --head=$GITHUB_SHA
+      # Checks on master
+    - run: yarn affected:build --base=$GITHUB_REF~1 --head=$GITHUB_SHA
+      # Checks on PR
+      # - run: yarn affected:build --base=$GITHUB_BASE_REF --head=$GITHUB_SHA
       env:
         CI: true
