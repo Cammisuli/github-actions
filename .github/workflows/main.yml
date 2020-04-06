@@ -16,11 +16,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: git fetch --no-tags --prune --depth=5 origin master
       - run: yarn install --frozen-lockfile
         # Checks on master
       - run: yarn affected:build --base=$GITHUB_REF~1 --head=$GITHUB_SHA
