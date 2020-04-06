@@ -25,7 +25,9 @@
               "apps/angular-app/src/favicon.ico",
               "apps/angular-app/src/assets"
             ],
-            "styles": ["apps/angular-app/src/styles.scss"],
+            "styles": [
+              "apps/angular-app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -84,7 +86,10 @@
               "apps/angular-app/tsconfig.app.json",
               "apps/angular-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/angular-app/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/angular-app/**"
+            ]
           }
         },
         "test": {
@@ -118,8 +123,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/angular-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/angular-app-e2e/**"]
+            "tsConfig": [
+              "apps/angular-app-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/angular-app-e2e/**"
+            ]
           }
         }
       }
@@ -137,7 +147,10 @@
               "libs/shared/product/tsconfig.lib.json",
               "libs/shared/product/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/product/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/product/**"
+            ]
           }
         },
         "test": {
@@ -168,7 +181,10 @@
               "libs/shared/product/data/tsconfig.lib.json",
               "libs/shared/product/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/product/data/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/product/data/**"
+            ]
           }
         },
         "test": {
