@@ -18,6 +18,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Get origin master
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -30,12 +36,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - name: Get origin master
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
         # Checks on PR
       - run: yarn affected:lint --base=origin/master --head=$GITHUB_SHA
         env:
@@ -53,6 +53,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Get origin master
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -65,12 +71,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - name: Get origin master
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
       - run: yarn affected:build --base=origin/master --head=$GITHUB_SHA
         env:
           CI: true
@@ -86,6 +86,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Get origin master
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -98,12 +104,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - name: Get origin master
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
       - run: yarn affected:test --base=origin/master --head=$GITHUB_SHA
         env:
           CI: true
