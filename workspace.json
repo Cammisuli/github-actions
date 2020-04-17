@@ -185,6 +185,75 @@
           "styleext": "scss"
         }
       }
+    },
+    "my-test-plugin": {
+      "root": "libs/my-test-plugin",
+      "sourceRoot": "libs/my-test-plugin/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/my-test-plugin/tsconfig.lib.json",
+              "libs/my-test-plugin/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/my-test-plugin/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/my-test-plugin/jest.config.js",
+            "tsConfig": "libs/my-test-plugin/tsconfig.spec.json"
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/my-test-plugin",
+            "tsConfig": "libs/my-test-plugin/tsconfig.lib.json",
+            "packageJson": "libs/my-test-plugin/package.json",
+            "main": "libs/my-test-plugin/src/index.ts",
+            "assets": [
+              "libs/my-test-plugin/*.md",
+              {
+                "input": "./libs/my-test-plugin/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/my-test-plugin",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/my-test-plugin",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "my-test-plugin-e2e": {
+      "projectType": "application",
+      "root": "apps/my-test-plugin-e2e",
+      "sourceRoot": "apps/my-test-plugin-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "my-test-plugin:build",
+            "npmPackageName": "@nx-example/my-test-plugin",
+            "pluginOutputPath": "dist/libs/my-test-plugin",
+            "jestConfig": "apps/my-test-plugin-e2e/jest.config.js",
+            "tsSpecConfig": "apps/my-test-plugin-e2e/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {
