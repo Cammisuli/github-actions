@@ -37,7 +37,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
         # Checks on PR
-      - run: yarn affected:lint --base=origin/master
+      - run: yarn affected:lint --base=origin/master --head=$GITHUB_SHA
         env:
           CI: true
 
@@ -71,7 +71,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - run: yarn affected:build --base=origin/master
+      - run: yarn affected:build --base=origin/master --head=$GITHUB_SHA
         env:
           CI: true
   test:
@@ -104,6 +104,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - run: yarn affected:test --base=origin/master
+      - run: yarn affected:test --base=origin/master --head=$GITHUB_SHA
         env:
           CI: true
