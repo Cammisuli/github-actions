@@ -105,7 +105,5 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - run: yarn affected:test --base=origin/master
-      - run: yarn affected:lint --base=origin/master
-      - run: yarn affected:build --base=origin/master
         env:
           CI: true
