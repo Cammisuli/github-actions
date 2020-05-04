@@ -6,13 +6,11 @@ on:
     branches: [master]
 
 jobs:
-  lint:
+  setup:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -24,26 +22,42 @@ jobs:
       - name: Get origin master
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-        # Checks on PR
-      - run: yarn affected:lint --base=origin/master --head=$GITHUB_SHA
-        env:
-          CI: true
+      - uses: actions/cache@v1
+        id: workspace-cache
+        with:
+          path: $GITHUB_WORKSPACE
+          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-workspace-
+  lint:
+    runs-on: ubuntu-latest
+
+    needs: [setup]
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v1
+        id: workspace-cache
+        with:
+          path: $GITHUB_WORKSPACE
+          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-workspace-
+      - run: yarn affected:lint --base=origin/master~1 --head=$GITHUB_SHA
 
   build:
     runs-on: ubuntu-latest
 
+    needs: [setup]
+
     strategy:
       matrix:
         node-version: [12.x]
@@ -53,30 +67,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - name: Get origin master
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - uses: actions/cache@v1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: workspace-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: $GITHUB_WORKSPACE
+          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-      - run: yarn affected:build --base=origin/master --head=$GITHUB_SHA
-        env:
-          CI: true
+            ${{ runner.os }}-workspace-
+      - run: yarn affected:build --base=origin/master~1 --head=$GITHUB_SHA
+
   test:
     runs-on: ubuntu-latest
 
+    needs: [setup]
+
     strategy:
       matrix:
         node-version: [12.x]
@@ -86,24 +90,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - name: Get origin master
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - uses: actions/cache@v1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: workspace-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: $GITHUB_WORKSPACE
+          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-      - run: yarn affected:test --base=origin/master --head=$GITHUB_SHA
-        env:
-          CI: true
+            ${{ runner.os }}-workspace-
+      - run: yarn affected:test --base=origin/master~1 --head=$GITHUB_SHA
