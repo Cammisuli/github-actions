@@ -37,3 +37,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Generated Docusaurus files
+/apps/my-docs-app/.docusaurus
+/apps/my-docs-app/.cache-loader
+
+# just a comment

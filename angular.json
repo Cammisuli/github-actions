@@ -154,7 +154,7 @@
           "builder": "@nrwl/web:build",
           "options": {
             "outputPath": "dist/apps/cart",
-            "webpackConfig": "@nrwl/react/plugins/babel",
+            "webpackConfig": "@nrwl/react/plugins/webpack",
             "index": "apps/cart/src/index.html",
             "main": "apps/cart/src/main.tsx",
             "polyfills": "apps/cart/src/polyfills.ts",
@@ -635,6 +635,25 @@
             "pluginOutputPath": "dist/libs/my-test-plugin",
             "jestConfig": "apps/my-test-plugin-e2e/jest.config.js",
             "tsSpecConfig": "apps/my-test-plugin-e2e/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "my-docs-app": {
+      "projectType": "application",
+      "root": "apps/my-docs-app",
+      "sourceRoot": "apps/my-docs-app/src",
+      "architect": {
+        "docusaurus": {
+          "builder": "@nx-plus/docusaurus:docusaurus",
+          "options": {
+            "port": 3000
+          }
+        },
+        "build": {
+          "builder": "@nx-plus/docusaurus:build-docusaurus",
+          "options": {
+            "outputPath": "dist/docusaurus/my-docs-app"
           }
         }
       }

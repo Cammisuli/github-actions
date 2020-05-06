@@ -53,7 +53,10 @@
     "react-dom": "16.12.0",
     "react-router-dom": "5.1.2",
     "rxjs": "6.5.5",
-    "zone.js": "^0.10.3"
+    "zone.js": "^0.10.3",
+    "@docusaurus/core": "^2.0.0-alpha.50",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.50",
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
     "@angular-devkit/architect": "0.901.1",
@@ -65,10 +68,11 @@
     "@ngrx/store-devtools": "9.0.0",
     "@nrwl/cypress": "9.3.0-beta.1",
     "@nrwl/jest": "9.3.0-beta.1",
-    "@nrwl/react": "9.3.0-beta.1",
     "@nrwl/nx-plugin": "9.3.0-beta.1",
+    "@nrwl/react": "9.3.0-beta.1",
     "@nrwl/web": "9.3.0-beta.1",
     "@nrwl/workspace": "9.3.0-beta.1",
+    "@nx-plus/docusaurus": "^0.0.3",
     "@testing-library/react": "9.4.0",
     "@types/jest": "25.1.4",
     "@types/node": "~8.9.4",

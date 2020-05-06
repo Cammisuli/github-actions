@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
 import { StoreModule } from '@ngrx/store';
-
 import {
   initialState as productsInitialState,
-  PRODUCTS_FEATURE_KEY,
-  productsReducer
+  productsReducer,
+  PRODUCTS_FEATURE_KEY
 } from './+state/products.reducer';
 
 @NgModule({
