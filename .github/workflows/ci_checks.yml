@@ -53,11 +53,16 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-cache
         with:
-          path: $GITHUB_WORKSPACE/github-actions/node_modules
+          path: node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
-      - run: yarn affected:lint --base=origin/master~1 --head=$GITHUB_SHA
+      - name: Run On Master
+        if: github.event_name == "push"
+        run: yarn affected:lint --base=$GITHUB_SHA~1 --head=$GITHUB_SHA
+      - name: Run on PR
+        if: github.event_name == "pull_request"
+        run: yarn affected:lint --base=origin/master --head=$GITHUB_HEAD_REF
 
   build:
     runs-on: ubuntu-latest
@@ -86,7 +91,12 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
-      - run: yarn affected:build --base=origin/master~1 --head=$GITHUB_SHA
+      - name: Run On Master
+        if: github.event_name == "push"
+        run: yarn affected:build --base=$GITHUB_SHA~1 --head=$GITHUB_SHA
+      - name: Run on PR
+        if: github.event_name == "pull_request"
+        run: yarn affected:build --base=origin/master --head=$GITHUB_HEAD_REF
 
   test:
     runs-on: ubuntu-latest
@@ -115,4 +125,9 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
-      - run: yarn affected:test --base=origin/master~1 --head=$GITHUB_SHA
+      - name: Run On Master
+        if: github.event_name == "push"
+        run: yarn affected:test --base=$GITHUB_SHA~1 --head=$GITHUB_SHA
+      - name: Run on PR
+        if: github.event_name == "pull_request"
+        run: yarn affected:test --base=origin/master --head=$GITHUB_HEAD_REF
