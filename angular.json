@@ -356,6 +356,18 @@
             "setupFile": "libs/products/home-page/src/test-setup.ts",
             "passWithNoTests": true
           }
+        },
+        "compodoc": {
+          "builder": "@twittwer/compodoc:compodoc",
+          "options": {
+            "tsConfig": "libs/products/home-page/tsconfig.lib.json",
+            "outputPath": "dist/compodoc/products-home-page"
+          },
+          "configurations": {
+            "json": {
+              "exportFormat": "json"
+            }
+          }
         }
       },
       "schematics": {
