@@ -25,10 +25,10 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-cache
         with:
-          path: $GITHUB_WORKSPACE/github-actions/node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-workspace-
+            ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
   lint:
@@ -54,9 +54,9 @@ jobs:
         id: workspace-cache
         with:
           path: $GITHUB_WORKSPACE/github-actions/node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-workspace-
+            ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - run: yarn affected:lint --base=origin/master~1 --head=$GITHUB_SHA
 
   build:
@@ -82,10 +82,10 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-cache
         with:
-          path: $GITHUB_WORKSPACE/github-actions/node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-workspace-
+            ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - run: yarn affected:build --base=origin/master~1 --head=$GITHUB_SHA
 
   test:
@@ -111,8 +111,8 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-cache
         with:
-          path: $GITHUB_WORKSPACE
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/yarn.lock') }}
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-workspace-
+            ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - run: yarn affected:test --base=origin/master~1 --head=$GITHUB_SHA
