@@ -58,10 +58,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - name: Run On Master
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: yarn affected:lint --base=$GITHUB_SHA~1 --head=$GITHUB_SHA
       - name: Run on PR
-        if: github.event_name == "pull_request"
+        if: github.event_name == 'pull_request'
         run: yarn affected:lint --base=origin/master --head=$GITHUB_HEAD_REF
 
   build:
@@ -92,10 +92,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - name: Run On Master
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: yarn affected:build --base=$GITHUB_SHA~1 --head=$GITHUB_SHA
       - name: Run on PR
-        if: github.event_name == "pull_request"
+        if: github.event_name == 'pull_request'
         run: yarn affected:build --base=origin/master --head=$GITHUB_HEAD_REF
 
   test:
@@ -126,8 +126,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - name: Run On Master
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: yarn affected:test --base=$GITHUB_SHA~1 --head=$GITHUB_SHA
       - name: Run on PR
-        if: github.event_name == "pull_request"
+        if: github.event_name == 'pull_request'
         run: yarn affected:test --base=origin/master --head=$GITHUB_HEAD_REF
