@@ -24,5 +24,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(private store: Store<ProductsPartialState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('hello');
+  }
 }
