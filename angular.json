@@ -638,6 +638,25 @@
           }
         }
       }
+    },
+    "my-docs-app": {
+      "projectType": "application",
+      "root": "apps/my-docs-app",
+      "sourceRoot": "apps/my-docs-app/src",
+      "architect": {
+        "docusaurus": {
+          "builder": "@nx-plus/docusaurus:docusaurus",
+          "options": {
+            "port": 3000
+          }
+        },
+        "build-docusaurus": {
+          "builder": "@nx-plus/docusaurus:build-docusaurus",
+          "options": {
+            "outputPath": "dist/docusaurus/my-docs-app"
+          }
+        }
+      }
     }
   },
   "cli": {
