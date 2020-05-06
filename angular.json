@@ -650,7 +650,7 @@
             "port": 3000
           }
         },
-        "build-docusaurus": {
+        "build": {
           "builder": "@nx-plus/docusaurus:build-docusaurus",
           "options": {
             "outputPath": "dist/docusaurus/my-docs-app"
