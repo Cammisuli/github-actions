@@ -42,4 +42,5 @@ Thumbs.db
 /apps/my-docs-app/.docusaurus
 /apps/my-docs-app/.cache-loader
 
-# just a comment
+**/obj
+**/bin
