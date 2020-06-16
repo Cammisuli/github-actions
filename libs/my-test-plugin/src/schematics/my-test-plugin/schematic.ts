@@ -23,6 +23,8 @@ import { MyTestPluginSchematicSchema } from './schema';
  */
 const projectType = ProjectType.Library;
 
+console.log('hello');
+
 interface NormalizedSchema extends MyTestPluginSchematicSchema {
   projectName: string;
   projectRoot: string;
