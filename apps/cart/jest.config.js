@@ -5,5 +5,7 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/apps/cart'
+  coverageDirectory: '../../coverage/apps/cart',
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  globals: { 'ts-jest': { tsConfig: '<rootDir>/tsconfig.spec.json' } }
 };
