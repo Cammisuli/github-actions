@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node-version: [12.x]
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
@@ -32,11 +33,12 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
   lint:
-    runs-on: ubuntu-latest
+    runs-on: {{ matrix.os }}
 
     needs: [setup]
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node-version: [12.x]
 
     steps:
@@ -66,12 +68,13 @@ jobs:
         run: yarn affected:lint --base=origin/master --head=HEAD --parallel
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: {{ matrix.os }}
 
     needs: [setup]
 
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node-version: [12.x]
 
     steps:
@@ -101,12 +104,13 @@ jobs:
         run: yarn affected:build --base=origin/master --head=HEAD --parallel
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: {{ matrix.os }}
 
     needs: [setup]
 
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node-version: [12.x]
 
     steps:
