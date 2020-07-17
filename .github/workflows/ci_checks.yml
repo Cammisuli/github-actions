@@ -7,7 +7,7 @@ on:
 
 jobs:
   setup:
-    runs-on: {{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -33,7 +33,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
   lint:
-    runs-on: {{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     needs: [setup]
     strategy:
@@ -68,7 +68,7 @@ jobs:
         run: yarn affected:lint --base=origin/master --head=HEAD --parallel
 
   build:
-    runs-on: {{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     needs: [setup]
 
@@ -104,7 +104,7 @@ jobs:
         run: yarn affected:build --base=origin/master --head=HEAD --parallel
 
   test:
-    runs-on: {{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     needs: [setup]
 
