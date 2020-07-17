@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - name: Run On Master
         if: github.event_name == 'push'
-        run: yarn affected:lint --base=$GITHUB_REF~1 --head=$GITHUB_SHA --parallel
+        run: yarn affected:lint --base=${{env.GITHUB_REF}}~1 --head=${{env.GITHUB_SHA}} --parallel
       - name: Run on PR
         if: github.event_name == 'pull_request'
         run: yarn affected:lint --base=origin/master --head=HEAD --parallel
