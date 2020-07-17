@@ -61,7 +61,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-
       - name: Run On Master (Linux)
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && runner.os == 'Linux'
         run: yarn affected:lint --base=$GITHUB_REF~1 --head=$GITHUB_SHA --parallel
       - name: Run On Master (Windows)
         if: github.event_name == 'push' && runner.os == 'Windows'
