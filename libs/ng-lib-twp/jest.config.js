@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'ng-lib-twp',
-  preset: '../../jest.config.js',
+  preset: '../../jest.preset.js',
   coverageDirectory: '../../coverage/libs/ng-lib-twp',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
@@ -17,5 +16,6 @@ module.exports = {
         'jest-preset-angular/build/StripStylesTransformer'
       ]
     }
-  }
+  },
+  displayName: 'ng-lib-twp'
 };

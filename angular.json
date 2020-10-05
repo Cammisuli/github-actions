@@ -598,7 +598,8 @@
                 "glob": "builders.json",
                 "output": "."
               }
-            ]
+            ],
+            "srcRootForCompilationRoot": "libs/my-test-plugin"
           }
         }
       }
@@ -614,8 +615,7 @@
             "target": "my-test-plugin:build",
             "npmPackageName": "@nx-example/my-test-plugin",
             "pluginOutputPath": "dist/libs/my-test-plugin",
-            "jestConfig": "apps/my-test-plugin-e2e/jest.config.js",
-            "tsSpecConfig": "apps/my-test-plugin-e2e/tsconfig.spec.json"
+            "jestConfig": "apps/my-test-plugin-e2e/jest.config.js"
           }
         }
       }
@@ -649,7 +649,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/ng-lib-twp/tsconfig.lib.json",
-            "project": "libs/ng-lib-twp/ng-package.json"
+            "project": "libs/ng-lib-twp/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -676,6 +677,70 @@
         }
       },
       "schematics": {}
+    },
+    "my-new-plugin": {
+      "root": "libs/my-new-plugin",
+      "sourceRoot": "libs/my-new-plugin/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/my-new-plugin/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/my-new-plugin/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/my-new-plugin",
+            "tsConfig": "libs/my-new-plugin/tsconfig.lib.json",
+            "packageJson": "libs/my-new-plugin/package.json",
+            "main": "libs/my-new-plugin/src/index.ts",
+            "assets": [
+              "libs/my-new-plugin/*.md",
+              {
+                "input": "./libs/my-new-plugin/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/my-new-plugin",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/my-new-plugin",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "my-new-plugin-e2e": {
+      "projectType": "application",
+      "root": "apps/my-new-plugin-e2e",
+      "sourceRoot": "apps/my-new-plugin-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "my-new-plugin:build",
+            "npmPackageName": "@nx-example/my-new-plugin",
+            "pluginOutputPath": "dist/libs/my-new-plugin",
+            "jestConfig": "apps/my-new-plugin-e2e/jest.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {

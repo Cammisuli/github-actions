@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'shared-product-state',
-  preset: '../../../../jest.config.js',
+  preset: '../../../../jest.preset.js',
   coverageDirectory: '../../../../coverage/libs/shared/product/state',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
@@ -16,5 +15,6 @@ module.exports = {
         'jest-preset-angular/build/StripStylesTransformer'
       ]
     }
-  }
+  },
+  displayName: 'shared-product-state'
 };

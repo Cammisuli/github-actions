@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'products-product-detail-page',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/libs/products/product-detail-page',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
@@ -16,5 +15,6 @@ module.exports = {
         'jest-preset-angular/build/StripStylesTransformer'
       ]
     }
-  }
+  },
+  displayName: 'products-product-detail-page'
 };

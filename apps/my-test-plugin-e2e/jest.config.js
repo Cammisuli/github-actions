@@ -1,5 +1,5 @@
 module.exports = {
   name: 'my-test-plugin-e2e',
-  preset: '../../jest.config.js',
+  preset: '../../jest.preset.js',
   coverageDirectory: '../../coverage/apps/my-test-plugin-e2e'
 };
