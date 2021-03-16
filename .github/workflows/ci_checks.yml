@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   Checks:
     env:
-      NX_BRANCH: ${{ github.event.number || github.ref }}
+      NX_BRANCH: ${{ github.event.number || 'master' }}
       NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
     strategy:
