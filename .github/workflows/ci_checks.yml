@@ -8,11 +8,15 @@ on:
 jobs:
   setup:
     runs-on: ${{ matrix.os }}
+    env:
+      NX_BRANCH: ${{ github.event.number || ${GITHUB_REF#refs/heads/} }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         node-version: [12.x]
     steps:
+      - run: echo ${env.NX_BRANCH}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
