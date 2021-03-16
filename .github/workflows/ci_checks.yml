@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       BRANCH_NAME: ${GITHUB_REF#refs/*/}
-      NX_BRANCH: ${{ github.event.number || env.BRANCH_NAME }}
+      NX_BRANCH: ${{ github.event.number || env.GITHUB_REF#refs/*/ }}
       NX_RUN_GROUP: ${{ github.run_id }}
     strategy:
       matrix:
