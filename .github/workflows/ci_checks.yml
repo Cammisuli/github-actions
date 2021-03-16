@@ -12,6 +12,7 @@ jobs:
         node-version: [14.x]
     steps:
       - name: Setup Nx Cloud variables
+        run: echo "Nx cloud setup"
         env:  
           NX_BRANCH: ${{ github.event.number ||  env.BRANCH_NAME }}
           NX_RUN_GROUP: ${{ github.run_id }}
