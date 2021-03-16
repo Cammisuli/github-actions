@@ -5,18 +5,22 @@ jobs:
   Checks:
     runs-on: ${{ matrix.os }}
     env:
-      BRANCH_NAME: ${GITHUB_REF#refs/*/}
+      BRANCH_NAME: ${{GITHUB_REF#refs/*/}}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node-version: [14.x]
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Setup Nx Cloud variables
-        run: echo "Nx cloud setup"
+        run: echo "branch name ${steps.extract_branch.outputs.branch}"
         env:  
-          NX_BRANCH: ${{ github.event.number ||  env.BRANCH_NAME }}
+          NX_BRANCH: ${{ github.event.number || env.BRANCH_NAME }}
           NX_RUN_GROUP: ${{ github.run_id }}
-      - run: echo $NX_BRANCH
+      - run: echo ${{env.NX_BRANCH}}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
