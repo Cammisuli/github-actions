@@ -4,8 +4,6 @@ on: [push, pull_request]
 jobs:
   Checks:
     runs-on: ${{ matrix.os }}
-    env:
-      BRANCH_NAME: ${GITHUB_REF#refs/*/}
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -13,10 +11,10 @@ jobs:
     steps:
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${BRANCH_NAME})"
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Setup Nx Cloud variables
-        run: echo "branch name ${{steps.extract_branch.outputs.branch}}"
+        run: echo "branch name ${steps.extract_branch.outputs.branch}"
         env:  
           NX_BRANCH: ${{ github.event.number || steps.extract_branch.outputs.branch }}
           NX_RUN_GROUP: ${{ github.run_id }}
