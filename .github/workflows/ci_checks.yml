@@ -18,7 +18,7 @@ jobs:
         env:  
           NX_BRANCH: ${{ github.event.number || steps.extract_branch.outputs.branch }}
           NX_RUN_GROUP: ${{ github.run_id }}
-      - run: echo $NX_BRANCH
+      - run: echo "${{env.NX_BRANCH}}"
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
